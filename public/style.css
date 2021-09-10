@@ -1,0 +1,11 @@
+#game{
+    border: 2px solid black;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#buttons{
+    margin: auto;
+    width: 16.1%;
+}

@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <script src="/socket.io/socket.io.js"></script>
+    <body>
+        <canvas id="game" width="1280" height="720" onclick="clicked(event)" onmousedown="mouseDown(event)" onmousemove="mouseMove(event)" onmouseup="mouseUp(event)" onmouseleave="mouseLeave(event)"></canvas>
+        <br>
+        <div id="buttons">
+            <button id="generate">Generate</button>
+            <button id="shuffle">Shuffle da cards</button>
+            <button id="deal">Deal Cards</button>
+            <button id="order">Order your hand</button>
+            <button id="play">Play Card(s)</button>
+            <p id="handSelectText">None Selected</p>
+        </div>
+        
+    </body>
+    <script src="ruleset.js"></script>
+    <script src="card.js"></script>
+    <script src="game.js"></script>
+    <script>
+        var socket = io();
+
+        var shuffle = document.getElementById("shuffle")
+        var generate = document.getElementById("generate")
+        var deal = document.getElementById("deal")
+        var order = document.getElementById("order")
+        
+        generate.addEventListener("click", function(){
+            socket.emit('generate');
+        })
+
+        shuffle.addEventListener("click", function(){
+            socket.emit('shuffle');
+        });
+
+        deal.addEventListener("click", function(){
+            socket.emit('deal');
+        })
+
+        order.addEventListener("click", function(){
+            sortHand();
+        })
+
+        play.addEventListener("click", function(){
+            playCards();
+        })
+
+        socket.on('shuffled', (deck) => {
+            //setDeck(deck);
+            /*
+            for(i = 0; i<deck.length; i++){
+                console.log(deck[i]);
+            }*/
+        });
+
+        socket.on('dealt', (hand) => {
+            //console.log("dealt");
+            setHand(hand);
+        });
+
+
+    </script>
+</html>
